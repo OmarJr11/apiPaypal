@@ -1,5 +1,5 @@
 const boton = document.querySelector("#boton").addEventListener("click", () =>{
-
+console.log(boton);
     
 (async () => {     
     const response = await fetch('https://apipersonal11.herokuapp.com/create-payment', 
