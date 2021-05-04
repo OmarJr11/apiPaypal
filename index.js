@@ -12,6 +12,8 @@
     const PAYPAL_API = 'https://api-m.sandbox.paypal.com'; // Live https://api-m.paypal.com
     
     const auth = { user: CLIENT, pass: SECRET }
+
+    let idWebhook = null;
     
     /*
     * Se establecen los controladores a usar
@@ -40,7 +42,7 @@
             body,
             json: true
         }, (err, response) => {
-            res.json({ data: response.body })
+            res.json({ data: response.body})
         })
 
     }
@@ -92,21 +94,20 @@
             auth,
             body,
             json: true
-        }, (err, response) => {res.json({data: response.body})
+        }, (err, response) => {
+            res.json({data: response.body})
         })
     }
     
     const getWebhook = (req, res) => {
-        const idWebhook = res.id;
 
-        request.post(`${PAYPAL_API}/v1/notifications/webhooks/${idWebhook}`, {
+        request.get(`${PAYPAL_API}/v1/notifications/webhooks-events`, {
             auth,
             body: {},
             json: true
         }, (err, response) => {
-            res.json({ data: response.body })
+            res.json({data: response.body.events[1]})
         })
-
     }
     
     /**
@@ -117,6 +118,8 @@
     app.get(`/execute-payment`, executePayment);
 
     app.post('/createWebhook', createWebhook);
+
+    app.get('/getWebhook', getWebhook);
     
     app.listen(3000, () => {
         console.log(`Comenzemos a generar dinero --> http://localhost:3000`);
