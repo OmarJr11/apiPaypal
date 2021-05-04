@@ -2,7 +2,7 @@ const boton = document.querySelector("#boton").addEventListener("click", () =>{
 
     
 (async () => {     
-    const response = await fetch('http://localhost:3000/create-payment', 
+    const response = await fetch('https://apipersonal11.herokuapp.com/create-payment', 
                                  {method: 'POST', mode: 'cors', 
                                   headers:{
                                       'Content-Type': 'application/json'
