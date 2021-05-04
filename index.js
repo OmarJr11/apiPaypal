@@ -70,6 +70,21 @@
             },
             {
                 name: "PAYMENT.AUTHORIZATION.VOIDED"
+            },
+            {
+                name: "PAYMENT.CAPTURE.COMPLETED"
+            },
+            {
+                name: "PAYMENT.CAPTURE.DENIED"
+            },
+            {
+                name: "PAYMENT.CAPTURE.PENDING"
+            },
+            {
+                name: "PAYMENT.CAPTURE.REFUNDED"
+            },
+            {
+                name: "PAYMENT.CAPTURE.REVERSED"
             }]
       }
 
@@ -81,6 +96,18 @@
         })
     }
     
+    const getWebhook = (req, res) => {
+        const idWebhook = res.id;
+
+        request.post(`${PAYPAL_API}/v1/notifications/webhooks/${idWebhook}`, {
+            auth,
+            body: {},
+            json: true
+        }, (err, response) => {
+            res.json({ data: response.body })
+        })
+
+    }
     
     /**
      * Rutas
