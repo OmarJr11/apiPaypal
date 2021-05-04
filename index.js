@@ -59,6 +59,27 @@
             res.json({ data: response.body })
         })
     }
+
+    const createWebhook = (req, res) => {
+
+        const body = {
+            url: "https://omarjr11.github.io/apiPaypal/",
+            event_types: [
+            {
+                name: "PAYMENT.AUTHORIZATION.CREATED"
+            },
+            {
+                name: "PAYMENT.AUTHORIZATION.VOIDED"
+            }]
+      }
+
+        request.post(`${PAYPAL_API}/v1/notifications/webhooks`, {
+            auth,
+            body,
+            json: true
+        }, (err, response) => {res.json({data: response.body})
+        })
+    }
     
     
     /**
@@ -67,6 +88,8 @@
     app.post(`/create-payment`, createPayment);
     
     app.get(`/execute-payment`, executePayment);
+
+    app.post('/createWebhook', createWebhook);
     
     app.listen(3000, () => {
         console.log(`Comenzemos a generar dinero --> http://localhost:3000`);
