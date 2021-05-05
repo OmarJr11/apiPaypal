@@ -79,6 +79,7 @@ nav ul li{
 #container #image{
     width: 55%;
     height: 95%;
+    box-shadow: 1px 1px 3px 2px rgb(51, 49, 49);
 }
 
 #container #details{
